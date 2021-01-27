@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Rocky.Models.Product>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container p-3 row">
+
+   
+        <div class="col-md-8">
+            <h2 class="text-info">Listado de Productos</h2>
+        </div>
+        <div class="col-md-4">
+            <a class="btn btn-primary btn-block" asp-action="upsert">Create</a>
+
+        </div>
+
+        
+        @if (Model.Count() > 0)
+        {
+            <div class="col-md-12">
+                <hr />
+                <br />
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Description</th>
+                            <th>Image</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model)
+                        {
+                            <tr>
+                                <td>@product.Name</td>
+                                <td>@product.Price</td>
+                                <td>@product.Description</td>
+                                <td>
+                                    <img width="50px" src="@WC.ImagePath@product.Image" style="border-radius:10px; margin-left:auto; margin-right:auto;display:block" />
+                                </td>
+                                <td>
+                                    <a class="btn btn-info p-2" asp-action="upsert" asp-route-id="@product.Id">Edit</a>
+                                    &nbsp;
+                                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@product.Id">Delete</a>
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        }
+        else
+        {
+            <p class="text-info">Not Data</p>
+        }
+</div>
+
