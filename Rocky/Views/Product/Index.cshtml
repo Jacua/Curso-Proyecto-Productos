@@ -28,6 +28,8 @@
                             <th>Name</th>
                             <th>Price</th>
                             <th>Description</th>
+                            <th>Categoria</th>
+                            <th>Tipo Aplicacion</th>
                             <th>Image</th>
                             <th></th>
                         </tr>
@@ -36,11 +38,13 @@
                         @foreach (var product in Model)
                         {
                             <tr>
-                                <td>@product.Name</td>
-                                <td>@product.Price</td>
-                                <td>@product.Description</td>
+                                <td width="15%">@product.Name</td>
+                                <td width="10%">@product.Price</td>
+                                <td width="15%">@product.Description</td>
+                                <td width="30%">@product.Category.Name</td>
+                                <td width="30%">@product.ApplicationType.Name</td>
                                 <td>
-                                    <img width="50px" src="@WC.ImagePath@product.Image" style="border-radius:10px; margin-left:auto; margin-right:auto;display:block" />
+                                    <img width="60px" src="@WC.ImagePath@product.Image" style="border-radius:10px; margin-left:auto; margin-right:auto;display:block" />
                                 </td>
                                 <td>
                                     <a class="btn btn-info p-2" asp-action="upsert" asp-route-id="@product.Id">Edit</a>

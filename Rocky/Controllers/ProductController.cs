@@ -27,7 +27,17 @@ namespace Rocky.Controllers
 
         public IActionResult Index()
         {
-            IEnumerable<Product> products = _db.Product.ToList();
+            //Eager Loading
+            IEnumerable<Product> products = _db.Product.Include(x=> x.Category).Include(x => x.ApplicationType);
+
+
+
+            //Mala Practica, demasiadas llamadas a la base de datos
+            //foreach (var obj in products)
+            //{
+            //    obj.Category = _db.Category.FirstOrDefault(u => u.Id == obj.CategoryId);
+            //    obj.ApplicationType = _db.ApplicationType.FirstOrDefault(u => u.Id == obj.ApplicationTypeId);
+            //}
 
             return View(products);
         }
@@ -43,6 +53,11 @@ namespace Rocky.Controllers
 
                     Text = x.Name,
                     Value = x.Id.ToString()
+                }),
+                ApplicationTypeSelecList = _db.ApplicationType.Select(x => new SelectListItem {
+                    Text = x.Name,
+                    Value = x.Id.ToString()
+
                 })
             };
 
@@ -139,6 +154,13 @@ namespace Rocky.Controllers
 
             });
 
+            productCategory.ApplicationTypeSelecList = _db.ApplicationType.Select(x => new SelectListItem
+            {
+                Text = x.Name,
+                Value = x.Id.ToString()
+
+            });
+
             return View(productCategory);
 
         }
@@ -153,7 +175,9 @@ namespace Rocky.Controllers
             
             }
 
-            Product product = _db.Product.Include(x => x.Category).FirstOrDefault( x => x.Id == id);
+            //Eager Loading
+
+            Product product = _db.Product.Include(x => x.Category).Include(x => x.ApplicationType).FirstOrDefault( x => x.Id == id);
 
             if (product == null)
             {

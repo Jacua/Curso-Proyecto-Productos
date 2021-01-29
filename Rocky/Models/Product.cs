@@ -20,11 +20,18 @@ namespace Rocky.Models
         [Range(1,int.MaxValue)]
         public int Price { get; set; }
 
+        public string ShortDescription { get; set; }
+
         public string Image { get; set; }
 
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
 
         public virtual Category Category { get; set; }
+
+        public int ApplicationTypeId { get; set; }
+        [ForeignKey("ApplicationTypeId")]
+
+        public virtual ApplicationType ApplicationType { get; set; }
     }
 }
