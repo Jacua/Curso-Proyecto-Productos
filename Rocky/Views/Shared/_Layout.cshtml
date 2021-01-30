@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@using Rocky.Utility
+@inject IHttpContextAccessor HttpContextAccesor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,6 +9,7 @@
     <title>@ViewData["Title"] - Rocky</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
 </head>
 <body>
     <header>
@@ -24,6 +28,26 @@
                         <li><a class="nav-link  dropdown-item" href="#">Application Type</a></li>
                         <li><a class="nav-link  dropdown-item" asp-controller="Category" asp-action="Index">Category</a></li>
                         <li><a class="nav-link  dropdown-item" asp-controller="Product" asp-action="Index">Products</a></li>
+                        <li>
+                            @if (HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart)!= null)
+                            {
+                                <a asp-controller="Cart" asp-action="Index" class="nav-link">
+                                    @{
+                                        var count = HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart).Count;
+                                    }
+
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
+                                </a>
+
+                             }
+                            else
+                            {
+                                <a href="#" class="nav-link">
+                                    <i class="fas fa-shopping-cart"></i> &nbsp; (0)
+                                </a>
+
+                            }
+                        </li>
                      
                     </ul>
                 </div>
