@@ -20,16 +20,17 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        
+                        <li><a class="nav-link  dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create new Admin</a></li>
                         <li><a class="nav-link  dropdown-item" href="#">Application Type</a></li>
                         <li><a class="nav-link  dropdown-item" asp-controller="Category" asp-action="Index">Category</a></li>
                         <li><a class="nav-link  dropdown-item" asp-controller="Product" asp-action="Index">Products</a></li>
                         <li>
-                            @if (HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart)!= null)
+                            @if (HttpContextAccesor.HttpContext.Session.Get<List<ShoppingCart>>(WC.SessionCart) != null)
                             {
                                 <a asp-controller="Cart" asp-action="Index" class="nav-link">
                                     @{
@@ -39,7 +40,7 @@
                                     <i class="fas fa-shopping-cart"></i> &nbsp; (@count)
                                 </a>
 
-                             }
+                            }
                             else
                             {
                                 <a href="#" class="nav-link">
@@ -48,8 +49,9 @@
 
                             }
                         </li>
-                     
+
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
